@@ -55,13 +55,13 @@
 </head>
 <body>
 
-<!-- ÉCRAN DE DÉMARRAGE (TAP ROMANTIQUE) -->
+<!-- ÉCRAN DE DÉMARRAGE -->
 <div id="startScreen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:linear-gradient(to right, #ff758c, #ff7eb3); display:flex; align-items:center; justify-content:center; flex-direction:column; z-index:9999; cursor:pointer;">
     <h2 style="color:white;">💗 Pose doucement ton doigt ici... une surprise t’attend 💗</h2>
     <p style="color:white;">(promis c’est magique ✨)</p>
 </div>
 
-<!-- MUSIQUE LOCALE -->
+<!-- MUSIQUE -->
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -76,52 +76,66 @@
 </div>
 
 <script>
-    // Démarrage musique au 1er tap (obligatoire sur téléphone)
-    const music = document.getElementById("bgMusic");
-    const startScreen = document.getElementById("startScreen");
 
-    startScreen.addEventListener("click", () => {
-        music.play();
+// 🔥 Démarrage musique compatible mobile
+const music = document.getElementById("bgMusic");
+const startScreen = document.getElementById("startScreen");
+
+startScreen.addEventListener("click", function () {
+    music.volume = 1;
+    music.muted = false;
+
+    music.play().then(() => {
         startScreen.style.display = "none";
+    }).catch(() => {
+        startScreen.querySelector("p").innerText = "Encore un petit tap 💗";
     });
+});
 
-    // Compte à rebours jusqu'au 6 mars 2026 à 21:00
-    const dinnerDate = new Date("2026-03-06 21:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = dinnerDate - now;
-        if (diff < 0) {
-            countdownEl.innerText = "😍 C’est l’heure du dîner !";
-            return;
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        countdownEl.innerText = `⏳ Plus que ${days}j ${hours}h ${minutes}m ${seconds}s avant notre dîner`;
-    }, 1000);
+// ⏳ Compte à rebours jusqu'au 6 mars 2026 à 21:00
+const dinnerDate = new Date("2026-03-06 21:00:00").getTime();
+const countdownEl = document.getElementById("countdown");
 
-    // Bouton "Non" qui s'échappe
-    const noBtn = document.getElementById("noBtn");
-    noBtn.addEventListener('mouseenter', () => {
-        const x = Math.random() * 200 - 100;
-        const y = Math.random() * 50 - 25;
-        noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    });
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = dinnerDate - now;
 
-    // Bouton "Oui" qui déclenche des coeurs
-    function loveAction() {
-        alert(" T'avais interré, Mets toi sexy ❤️‍🔥🫦 !!!!!");
-        for (let i = 0; i < 25; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.textContent = '❤️';
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 2000);
-        }
+    if (diff < 0) {
+        countdownEl.innerText = "😍 C’est l’heure du dîner !";
+        return;
     }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    countdownEl.innerText = `⏳ Plus que ${days}j ${hours}h ${minutes}m ${seconds}s avant notre dîner`;
+}, 1000);
+
+// Bouton "Non" qui s'échappe
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener('mouseenter', () => {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 50 - 25;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// Bouton "Oui" qui déclenche des coeurs
+function loveAction() {
+    alert(" T'avais interré, Mets toi sexy ❤️‍🔥🫦 !!!!!");
+
+    for (let i = 0; i < 25; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = '❤️';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+    }
+}
+
 </script>
 
 </body>
