@@ -1,0 +1,112 @@
+regarde on reprends tout à partie de la avec mon code. Dis moi si il est bien et si il y a des actions que j'ai integres ?
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invitation spéciale pour BETCHOU 💝</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            padding-top: 60px;
+            overflow: hidden;
+        }
+        .card {
+            background: rgba(255,255,255,0.15);
+            padding: 40px;
+            border-radius: 20px;
+            display: inline-block;
+            position: relative;
+        }
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            position: relative;
+        }
+        .yes {
+            background-color: #28a745;
+            color: white;
+        }
+        .no {
+            background-color: #dc3545;
+            color: white;
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: fall 2s linear forwards;
+        }
+        @keyframes fall {
+            0% {top:0; opacity:1;}
+            100% {top:500px; opacity:0;}
+        }
+        #countdown {
+            font-size: 22px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- PLAYER MUSICAL -->
+<div>
+    🎵 <a href="https://soundcloud.com/djmagickenny/dwtg-down-with-the-gouyad-remix-djmagickenny-ft-yuri-dee-end" target="_blank" style="color: white; text-decoration: underline;">Écouter "Down With The Gouyad"</a> 🎶
+</div>
+
+<div class="card">
+    <h1>Ma BETCHOU 💝</h1>
+    <h2>Acceptes-tu un dîner avec moi ? 🩷✨</h2>
+    <p id="countdown"></p>
+
+    <button class="yes" onclick="loveAction()">Oui mon Homme,mon maître, mon amour éternel 😍</button>
+    <button class="no" id="noBtn">Non, (fé atansyon 🖕🖕) </button>
+</div>
+
+<script>
+    // Compte à rebours jusqu'au 6 mars 2026 à 21:00
+    const dinnerDate = new Date("2026-03-06 21:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+    setInterval(() => {
+        const now = new Date().getTime();
+        const diff = dinnerDate - now;
+        if (diff < 0) {
+            countdownEl.innerText = "😍 C’est l’heure du dîner !";
+            return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        countdownEl.innerText = `⏳ Plus que ${days}j ${hours}h ${minutes}m ${seconds}s avant notre dîner`;
+    }, 1000);
+
+    // Bouton "Non" qui s'échappe
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener('mouseenter', () => {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 50 - 25;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Bouton "Oui" qui déclenche des coeurs
+    function loveAction() {
+        alert(" T'avais interré, Mets toi sexy ❤️‍🔥🫦 !!!!!");
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+    }
+</script>
+
+</body>
+</html>
